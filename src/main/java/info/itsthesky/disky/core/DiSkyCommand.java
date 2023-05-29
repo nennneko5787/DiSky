@@ -1,25 +1,23 @@
 package info.itsthesky.disky.core;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.SkriptAddon;
-import ch.njol.skript.util.Date;
-import info.itsthesky.disky.DiSky;
-import info.itsthesky.disky.api.modules.DiSkyModule;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDAInfo;
-import net.dv8tion.jda.api.requests.GatewayIntent;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.Locale;
+import ch.njol.skript.Skript;
+import ch.njol.skript.SkriptAddon;
+import ch.njol.skript.util.Date;
+import info.itsthesky.disky.DiSky;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDAInfo;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class DiSkyCommand implements CommandExecutor {
     @Override
@@ -29,11 +27,11 @@ public class DiSkyCommand implements CommandExecutor {
             sender.sendMessage(Utils.colored(""));
             sender.sendMessage(Utils.colored("&b/disky &7- &9Show this help page."));
             sender.sendMessage(Utils.colored("&b/disky docs <include time> &7- &9Generate the full documentation of DiSky, including or not event-value's time."));
-            sender.sendMessage(Utils.colored("&b/disky modules &7- &9Show the list of modules."));
+            //sender.sendMessage(Utils.colored("&b/disky modules &7- &9Show the list of modules."));
             sender.sendMessage(Utils.colored("&b/disky bots &7- &9Show the list of loaded bots."));
             sender.sendMessage(Utils.colored("&b/disky bot <bot> &7- &9Show info about a specific bot."));
             sender.sendMessage(Utils.colored("&b/disky debug &7- &9Store the debug information inside the 'plugins/DiSky/debug.txt' file."));
-            sender.sendMessage(Utils.colored("&b/disky reload <module name> &7- &4&lBETA &9Reload a specific module."));
+            //sender.sendMessage(Utils.colored("&b/disky reload <module name> &7- &4&lBETA &9Reload a specific module."));
             sender.sendMessage(Utils.colored(""));
             return true;
         } else if (args[0].equalsIgnoreCase("docs")) {
@@ -77,10 +75,7 @@ public class DiSkyCommand implements CommandExecutor {
             sb.append("\n");
 
             sb.append("== | Modules Information\n\n");
-            sb.append("Loaded Modules: ").append(DiSky.getModuleManager().getModules().size()).append("\n");
-            for (DiSkyModule module : DiSky.getModuleManager().getModules())
-                sb.append("  - ").append(module.getName()).append(" v").append(module.getVersion()).append("\n");
-            sb.append("\n");
+            sb.append("&cThe module is disabled in &bPlayer&dRealms!");
 
             sb.append("== | Skript Information\n\n");
             sb.append("Version: ").append(Skript.getVersion()).append("\n");
@@ -103,11 +98,7 @@ public class DiSkyCommand implements CommandExecutor {
 
             return true;
         } else if (args[0].equalsIgnoreCase("modules")) {
-            sender.sendMessage(Utils.colored("&b------ &9DiSky v" + DiSky.getInstance().getDescription().getVersion() + " Modules (" + DiSky.getModuleManager().getModules().size() + ") &b------"));
-            sender.sendMessage(Utils.colored(""));
-            for (DiSkyModule module : DiSky.getModuleManager().getModules())
-                sender.sendMessage(Utils.colored("  &7- &b" + module.getName() + " &3made by &b" + module.getAuthor() + " &3version &b" + module.getVersion()));
-            sender.sendMessage(Utils.colored(""));
+            sender.sendMessage(Utils.colored("&cThe module is disabled in &bPlayer&dRealms!"));
             return true;
         } else if (args[0].equalsIgnoreCase("bots")) {
             sender.sendMessage(Utils.colored("&b------ &9DiSky v" + DiSky.getInstance().getDescription().getVersion() + " Bots (" + DiSky.getManager().getBots().size() + ") &b------"));
@@ -139,56 +130,7 @@ public class DiSkyCommand implements CommandExecutor {
             sender.sendMessage(Utils.colored(""));
             return true;
         } else if (args[0].equalsIgnoreCase("reload")) {
-            final @Nullable String moduleName = args.length > 1 ? args[1].toLowerCase(Locale.ROOT) : null;
-            if (moduleName == null) {
-                sender.sendMessage(Utils.colored("&cYou must specify a module name!"));
-                return false;
-            }
-
-            if (moduleName.equalsIgnoreCase("all")) {
-                sender.sendMessage(Utils.colored("&b------ &9DiSky v" + DiSky.getInstance().getDescription().getVersion() + " Reloading All Modules &b------"));
-                long before = System.currentTimeMillis();
-
-                sender.sendMessage(Utils.colored("&4/!\\"));
-                sender.sendMessage(Utils.colored("&4/!\\ &cYou are using a BETA feature!"));
-                sender.sendMessage(Utils.colored("&4/!\\ &cDiSky will make illegal operation on Skript, &4DO NOT&c use this feature in production!"));
-                sender.sendMessage(Utils.colored("&4/!\\"));
-
-                for (DiSkyModule module : DiSky.getModuleManager().getModules()) {
-                    try {
-                        module.reload();
-                    } catch (Exception ex) {
-                        sender.sendMessage(Utils.colored("&cFailed to reload module &b" + module.getName() + "&c!"));
-                        ex.printStackTrace();
-                    }
-                }
-
-                sender.sendMessage(Utils.colored("&b------ &aSuccess! Took &2"+( System.currentTimeMillis() - before )+"ms! &b------"));
-            } else {
-                final @Nullable DiSkyModule module = DiSky.getModule(moduleName);
-
-                if (module == null) {
-                    sender.sendMessage(Utils.colored("&cNo module by that name found."));
-                    return false;
-                }
-
-                sender.sendMessage(Utils.colored("&b------ &9DiSky v" + DiSky.getInstance().getDescription().getVersion() + " Module Reloading &b------"));
-                long before = System.currentTimeMillis();
-
-                sender.sendMessage(Utils.colored("&4/!\\"));
-                sender.sendMessage(Utils.colored("&4/!\\ &cYou are using a BETA feature!"));
-                sender.sendMessage(Utils.colored("&4/!\\ &cDiSky will make illegal operation on Skript, &4DO NOT&c use this feature in production!"));
-                sender.sendMessage(Utils.colored("&4/!\\"));
-
-                try {
-                    module.reload();
-                } catch (Exception ex) {
-                    sender.sendMessage(Utils.colored("&cFailed to reload module &b" + module.getName() + "&c!"));
-                    ex.printStackTrace();
-                }
-                sender.sendMessage(Utils.colored("&b------ &aSuccess! Took &2"+( System.currentTimeMillis() - before )+"ms! &b------"));
-            }
-            return true;
+        	sender.sendMessage("&cThe module is disabled in &bPlayer&dRealms!");
         }
         return onCommand(sender, command, label, new String[0]);
     }

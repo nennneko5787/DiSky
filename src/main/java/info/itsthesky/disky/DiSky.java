@@ -1,5 +1,15 @@
 package info.itsthesky.disky;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.Objects;
+
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import info.itsthesky.disky.api.emojis.EmojiStore;
@@ -14,18 +24,6 @@ import info.itsthesky.disky.managers.BotManager;
 import info.itsthesky.disky.managers.Configuration;
 import info.itsthesky.disky.structures.StructureLoader;
 import net.dv8tion.jda.api.requests.RestAction;
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Files;
-import java.util.Objects;
 
 public final class DiSky extends JavaPlugin {
 
@@ -121,17 +119,17 @@ public final class DiSky extends JavaPlugin {
             return;
         }
         addonInstance = Skript.registerAddon(this);
+        getLogger().warning(ChatColor.RED + "The module is disabled in " + ChatColor.AQUA + "Player" + ChatColor.DARK_PURPLE + "Realms!");
         moduleManager = new ModuleManager(new File(getDataFolder(), "modules"), this, addonInstance);
         try {
             ConstLogs.registerAll();
 
             addonInstance.loadClasses("info.itsthesky.disky.elements");
-            moduleManager.loadModules();
+            //moduleManager.loadModules();
+            //The module is disabled in PlayerRealms!
         } catch (IOException e) {
             errorHandler.exception(null, e);
             return;
-        } catch (ClassNotFoundException | InvalidConfigurationException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            e.printStackTrace();
         }
 
         /*
