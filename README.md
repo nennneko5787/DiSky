@@ -1,36 +1,38 @@
-# DiSky
+# 注意
+このREADME.mdはDeepLで適当に翻訳して言葉のミスを適当に直したものです。
+# Disky
 
 *** 
 
-## What is DiSky?
+## DiSkyとは？
 
-DiSky is a **[Skript](https://github.com/SkriptLang/Skript/)** addon, which allows you to create, manage and edit **Discord**'s bots.
+DiSkyは[**Skript**](https://github.com/SkriptLang/Skript/)アドオンで、**Discord**のボットを作成、管理、編集することができます。
 
-It provides more than **400** different syntax, such as:
+以下のような、**400**以上の異なるシンタックスを提供します：
 
-* Creating entities (roles, channels, categories, etc.)
-* Editing existing entities
-* Send advanced message with **embeds**, **components** or **attachments**
-* Several's **utilities** syntax to let developer make their bot faster and easier.
-* Fully supports **Slash** commands, including option types, sub-commands, groups and auto-completion arguments.
-* Fully supports **Interactions** (buttons, select menus, etc.)
-* Fully supports forums & posts!
-* And much, much more!
+* エンティティ（ロール、チャンネル、カテゴリなど）を作成する。
+* 既存のエンティティを編集する
+* **埋め込み**、**コンポーネント**、**添付ファイル**を使用した高度なメッセージの送信。
+* 開発者がより速く、より簡単にボットを作ることができるようにするためのいくつかの**ユーティリティ**構文。
+* オプションタイプ、サブコマンド、グループ、オートコンプリート引数を含む**スラッシュ**コマンドを完全にサポートしています。
+* **インタラクション**（ボタン、セレクトメニューなど）を完全にサポートしています。
+* フォーラムとポストを完全にサポートします！
+* そして、もっともっと多くのことを！
 
-## Useful links
+## 便利なリンク
 
 * [**Wiki**](https://docs.disky.me/)
-* [Discord Server](https://disky.me/discord)
-* [Documentation](https://disky.me/docs/)
+* [**Disky公式Discordサーバー**](https://disky.me/discord)
+* [**ドキュメンテーション**](https://disky.me/docs/)
 
-## Requirements
+## 必要なもの
 
-* Skript **2.6.0** or higher
-* Spigot/Paper/Any fork of them **1.13.0** or higher
+* Skript **2.6.0** またはそれ以上
+* Spigot/Paper/Any fork of them **1.13.0** またはそれ以降。
 
-> **Note:** Event if DiSky is only based on Skript, some features require Bukkit's or Spigot's API. The 1.13+ version is a more recommended version than a requirement.
+> Note: DiSkyがSkriptのみをベースとしている場合、いくつかの機能はBukkitやSpigotのAPIを必要とします。1.13以上のバージョンは必須というより*推奨バージョン*です。
 
-## Incompatibilities
+## 非互換性
 
-* DiscordSRV *(it uses an older version of JDA that DiSky is not based on)*
-* any other JDA-compiled plugin, that doesn't have JDA 5 as JDA version.
+* DiscordSRV *(DiSkyがベースとしていない古いバージョンのJDAを使用しています)*。
+* JDA 5をJDAのバージョンとしない、他のJDAコンパイルされたプラグイン。
