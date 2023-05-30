@@ -1,29 +1,5 @@
 package info.itsthesky.disky.api.modules;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.SkriptAddon;
-import ch.njol.skript.classes.ClassInfo;
-import ch.njol.skript.classes.Parser;
-import ch.njol.skript.classes.Serializer;
-import ch.njol.skript.classes.data.JavaClasses;
-import ch.njol.skript.lang.ExpressionInfo;
-import ch.njol.skript.lang.ParseContext;
-import ch.njol.skript.lang.SyntaxElementInfo;
-import ch.njol.skript.lang.VariableString;
-import ch.njol.skript.registrations.Classes;
-import ch.njol.skript.registrations.Converters;
-import ch.njol.skript.registrations.EventValues;
-import ch.njol.skript.util.Utils;
-import ch.njol.yggdrasil.Fields;
-import info.itsthesky.disky.DiSky;
-import info.itsthesky.disky.api.ReflectionUtils;
-import info.itsthesky.disky.api.generator.DocBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -33,12 +9,28 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.SkriptAddon;
+import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.lang.ExpressionInfo;
+import ch.njol.skript.lang.SyntaxElementInfo;
+import ch.njol.skript.registrations.Classes;
+import info.itsthesky.disky.DiSky;
+import info.itsthesky.disky.api.ReflectionUtils;
+import info.itsthesky.disky.api.generator.DocBuilder;
 
 public class ModuleManager {
 
@@ -174,6 +166,8 @@ public class ModuleManager {
     public void loadModules() throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvalidConfigurationException {
         final File[] modulesFile = this.moduleFolder.listFiles();
         assert modulesFile != null;
+        return;
+        /*
         for (final File moduleFile : modulesFile) {
             if (moduleFile.isDirectory() || !moduleFile.getName().endsWith(".jar"))
                 continue;
@@ -197,6 +191,7 @@ public class ModuleManager {
             modules.put(module.getName(), module);
             getLogger().info("Successfully enabled module '"+module.getName()+"'!");
         }
+        */
     }
 
     public List<DiSkyModule> getModules() {

@@ -130,7 +130,7 @@ public class DiSkyCommand implements CommandExecutor {
             sender.sendMessage(Utils.colored(""));
             return true;
         } else if (args[0].equalsIgnoreCase("reload")) {
-        	sender.sendMessage("&cThe module is disabled in &bPlayer&dRealms!");
+        	sender.sendMessage(Utils.colored("&cThe module is disabled in &bPlayer&dRealms!"));
         }
         return onCommand(sender, command, label, new String[0]);
     }
